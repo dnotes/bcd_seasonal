@@ -1,0 +1,62 @@
+<?php
+// $Id$
+
+/**
+ * @file
+ *
+ */
+
+function bcd_seasonal_install() {
+
+  if (!$vid = db_query("SELECT vid FROM {vocabulary} WHERE module = 'bcd_seasonal'")) { // intentional assignment of $vid
+    $vocab = array(
+      'name' => t('Seasons'),
+      'multiple' => 1,
+      'required' => 1,
+      'hierarchy' => 0,
+      'relations' => 0,
+      'module' => 'bcd_seasonal',
+      'nodes' => array('seasonal' => 1),
+    );
+
+    taxonomy_save_vocabulary($vocab);
+    $vid = $vocab['vid'];
+    variable_set("pathauto_taxonomy_{$vid}_pattern", 'seasonal-schools/[cat-raw]');
+
+    $terms = array(
+      array(
+        'name' => t('Spring'),
+        'weight' => 0,
+      ),
+      array(
+        'name' => t('Summer'),
+        'weight' => 1,
+      ),
+      array(
+        'name' => t('Fall'),
+        'weight' => 2,
+      ),
+      array(
+        'name' => t('Winter'),
+        'weight' => 3,
+      ),
+    );
+
+    foreach ($terms as $term) {
+      $term['vid'] = $vid;
+      taxonomy_save_term($term);
+    }
+  }
+
+  variable_set('pathauto_node_facility_pattern', 'seasonal-schools/[term-raw]/[title-raw]');
+
+}
+
+function bcd_seasonal_uninstall() {
+  if ($vid = db_query("SELECT vid FROM {vocabulary} WHERE module = 'bcd_seasonal'")) { // intentional assignment of $vid
+    $vocab = taxonomy_get_vocabulary($vid);
+    if ($vocab['nodes'] == array('seasonal' => 1)) {
+      drupal_set_message(t('You may manually delete the %name taxonomy', array('%name' => $vocab['name'])));
+    }
+  }
+}

@@ -8,20 +8,6 @@ function bcd_seasonal_strongarm() {
   $strongarm = new stdClass;
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
-  $strongarm->name = 'content_extra_weights_seasonal';
-  $strongarm->value = array(
-    'title' => '-5',
-    'body_field' => '1',
-    'revision_information' => '2',
-    'menu' => '0',
-    'path' => '3',
-    'locations' => '-4',
-  );
-
-  $export['content_extra_weights_seasonal'] = $strongarm;
-  $strongarm = new stdClass;
-  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
-  $strongarm->api_version = 1;
   $strongarm->name = 'location_defaultnum_seasonal';
   $strongarm->value = '1';
 

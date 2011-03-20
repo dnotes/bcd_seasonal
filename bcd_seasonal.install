@@ -50,6 +50,14 @@ function bcd_seasonal_install() {
 
   variable_set('pathauto_node_seasonal_pattern', 'seasonal-schools/[term-raw]/[title-raw]');
   variable_set('gmap_node_markers_seasonal', 'small lblue');
+  variable_set('content_extra_weights_seasonal', array(
+    'title' => '-5',
+    'body_field' => '1',
+    'revision_information' => '2',
+    'menu' => '0',
+    'path' => '3',
+    'locations' => '-4',
+  ));
 
 }
 
